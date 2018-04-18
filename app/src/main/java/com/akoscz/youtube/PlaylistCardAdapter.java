@@ -106,7 +106,12 @@ public class PlaylistCardAdapter extends RecyclerView.Adapter<PlaylistCardAdapte
         holder.mThumbnailImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + video.getId())));
+             //   holder.mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + video.getId())));
+
+                Intent intent = new Intent(holder.mContext,BasicPlayerActivity.class);
+                intent.putExtra("video_id",video.getId());
+                holder.mContext.startActivity(intent);
+
             }
         });
 
@@ -114,12 +119,17 @@ public class PlaylistCardAdapter extends RecyclerView.Adapter<PlaylistCardAdapte
         View.OnClickListener shareClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Watch \"" + videoSnippet.getTitle() + "\" on YouTube");
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "https://www.youtube.com/watch?v=" + video.getId());
                 sendIntent.setType("text/plain");
                 holder.mContext.startActivity(sendIntent);
+
+
+
             }
         };
         holder.mShareIcon.setOnClickListener(shareClickListener);

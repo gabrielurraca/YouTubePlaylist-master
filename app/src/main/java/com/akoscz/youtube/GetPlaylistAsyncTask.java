@@ -59,6 +59,7 @@ public abstract class GetPlaylistAsyncTask extends AsyncTask<String, Void, Pair<
 
         PlaylistItemListResponse playlistItemListResponse;
         try {
+
             playlistItemListResponse = mYouTubeDataApi.playlistItems()
                     .list(YOUTUBE_PLAYLIST_PART)
                     .setPlaylistId(playlistId)

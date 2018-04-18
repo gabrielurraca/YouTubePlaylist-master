@@ -2,8 +2,11 @@ package com.akoscz.youtube;
 
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.akoscz.youtube.model.PlaylistVideos;
 import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.ChannelListResponse;
 import com.google.api.services.youtube.model.PlaylistListResponse;
 
 import java.io.IOException;
@@ -38,6 +41,23 @@ public class GetPlaylistTitlesAsyncTask  extends AsyncTask<String[], Void, Playl
         } catch (IOException e) {
             e.printStackTrace();
             return null;
+        }
+
+        ChannelListResponse channelListResponse;
+
+        try
+        {
+
+            channelListResponse = mYouTubeDataApi.channels().
+                    list(YOUTUBE_PLAYLIST_PART).
+                    setFields(YOUTUBE_PLAYLIST_FIELDS).
+                    setId("UC_x5XG1OV2P6uZZ5FSM9Ttw").setKey(ApiKey.YOUTUBE_API_KEY).execute();
+            Log.i("tag","channel response"+channelListResponse);
+
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
         }
          
         return playlistListResponse;
